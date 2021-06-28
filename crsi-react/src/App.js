@@ -44,7 +44,7 @@ function App() {
           <Route path="/courses/new" component={NewCourse} />
           {/*Passing ID is compulsory to identify which product will be updated */}
           <Route path="/courses/update/:id" component={UpdateCourse} />
-          <Route path="/courses" component={Courses} />
+          <Route path="/courses/:page?" component={Courses} />
 {/*----------------QUIZES */}
           <Route path="/quizes/new" component={NewQuiz} />
           <Route path="/quizes/update/:id" component={UpdateQuiz} />

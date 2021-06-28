@@ -7,8 +7,14 @@ var {Course,validate, validate} = require("../../models/course");
 
 //get all courses
 router.get("/", auth,async(req,res)=>{
-let courses = await Course.find();
-return res.send(courses);
+
+console.log(req.user);
+let page = Number(req.query.page ? req.query.page : 1);
+let perPage = Number(req.query.perPage ? req.query.perPage : 10);
+let skipRecords = perPage * (page - 1);
+let courses = await Course.find().skip(skipRecords).limit(perPage);
+let total = await Course.countDocuments();
+return res.send({ total, courses });
 
 });
 
@@ -18,7 +24,7 @@ router.get("/:id", auth,async(req,res)=>{
 try {
     let course = await Course.findById(req.params.id);
     if (!course)
-        return res.status(400).send("Product With given ID is not present"); //when id is not present id db
+        return res.status(400).send("Course With given ID is not present"); //when id is not present id db
         return res.send(course); //everything is ok
     } catch (err) {
     return res.status(400).send("Invalid ID"); // format of id is not correct

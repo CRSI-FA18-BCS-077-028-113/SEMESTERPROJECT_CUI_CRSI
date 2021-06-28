@@ -1,9 +1,10 @@
 import React from 'react';
-import { Button } from "@material-ui/core";
+import { Button,Grid ,Typography} from "@material-ui/core";
 import notificationService from "../../services/NotificationsService";
 import { withRouter } from "react-router";
 import userService from "../../services/UserService";
 import { makeStyles } from "@material-ui/core/styles";
+
 
 const useStyles = makeStyles((theme) => ({
   Btn:{
@@ -16,9 +17,15 @@ const useStyles = makeStyles((theme) => ({
   marginTop:"50px"
   },
   genh:{
-    fontFamily:"calibri",
-    fontSize:"17px",
-    }
+    fontFamily:"timesnewroman",
+    fontSize:"15px",
+    },
+
+genhlink:{
+      fontFamily:"timesnewroman",
+      fontSize:"15px",
+      color:"blue"
+      }
   }));
 
 const SingleNotification = (props) => {
@@ -26,17 +33,19 @@ const SingleNotification = (props) => {
   console.log(props);
   const style = useStyles();
     return (
-      
+<Grid item xs zeroMinWidth>
+  <Typography style={{padding:"30px"}}>
     <div>
+      <br />
         <h2 className={style.mainh}>
-        <br />
+        
           {notification.title} 
         {userService.isAdmin() && (
         <>
         <Button
          variant="contained" color="primary"
          className={style.Btn}
-         style={{backgroundColor:"#88e916"}}
+         style={{backgroundColor:"#88e916",float:"right"}}
          onClick={(e) => {
           console.log("navigate to update");
           history.push("/notifications/update/" + notification._id);
@@ -60,15 +69,17 @@ const SingleNotification = (props) => {
          >
         Delete 
         </Button>
+        <hr />
         </>
          )}
         </h2>
-        <p className={style.genh}>{notification.body}</p>
-        <p className={style.genh}>{notification.date}</p>
-        <p className={style.genh}>{notification.links}</p>
-        
-       <hr />
+        <h4 className={style.genh}>{notification.body}</h4>
+        <h4 className={style.genh}>{notification.date}</h4>
+        <h4 className={style.genhlink}>{notification.links}</h4>
+        <br />
     </div>
+    </Typography>
+    </Grid>
 
   );
 }

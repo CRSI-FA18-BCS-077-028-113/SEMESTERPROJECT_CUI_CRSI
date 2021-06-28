@@ -1,5 +1,6 @@
 import React from "react";
 import SingleCourse from "./SingleCourse";
+import Pagination from "@material-ui/lab/Pagination";
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
@@ -35,11 +36,15 @@ const Courses = (props) => {
   const[courses,setCourses] = React.useState([]);
   const style = useStyles();
 
+  const page = props.match.params.page ? props.match.params.page : 1;
+  const [total, setTotal] = React.useState(0);
+  const [perPage, setPerPage] = React.useState("10");
   const getData = () => {
     courseService
-      .getCourse()
+      .getCourse(page, perPage)
       .then((data) => {
-        setCourses(data);
+        setCourses(data.courses);
+        setTotal(data.total);
       })
       .catch((err) => {
         console.log(err);
@@ -47,7 +52,7 @@ const Courses = (props) => {
   };
 
   //get data
-  React.useEffect(getData,[]);
+  React.useEffect(getData, [page, perPage]);
   //console.log("Inside Courses Components");
 
   //NEW COURSE HANDLER
@@ -62,7 +67,21 @@ return (
     <div>
       <h1 className={style.coursehd}>Courses</h1> 
       <hr />
-      
+<div >
+  <span style={{fontFamily:"timesnewroman",fontSize:"16px"}}> Records Per Page:{" "}</span>
+      <select
+        
+        onChange={(e) => setPerPage(e.target.value)}
+        style={{ width: "130px", height: "25px",backgroundColor:"#f8e9f5" }}
+      >
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="6">6</option>
+      </select>
+      <hr />
+
+</div>     
+
 {/*SHOW ADD BUTTON only to logged in user who is Admin */}
 <>
       {(userService.isLoggedIn() && userService.isAdmin() ) &&  ( 
@@ -87,7 +106,23 @@ return (
         )
   }
 </>
-  
+<Grid item xs={12}  style={{marginTop:"130px",marginBottom:"50px",marginLeft:"40%"}}>
+        <Pagination
+          
+          count={Math.ceil(total / perPage)}
+          variant="outlined"
+          shape="rounded"
+          color="secondary"
+          onChange={(e, value) => {
+            console.log(value);
+            props.history.push("/courses/" + value);
+          }}
+        />{" "}
+        <div style={{marginLeft:"-23px",fontFamily:"timesnewroman",fontSize:"15px",fontWeight:"bold"}}>
+        Total: {total} ...... Showing {(page - 1) * perPage} to{" "}
+        {(page - 1) * perPage + courses.length}
+        </div>
+      </Grid>
 </div>   
   
 );

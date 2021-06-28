@@ -5,6 +5,7 @@ import { AppBar, Toolbar, Typography,Button,Grid } from "@material-ui/core";
 import userService from "../services/UserService";
 import Login from "./auth/Login";
 import logo from './images/logo.jpg';
+import LandingPage from "./LandingPage";
 
 //styling
 const useStyles = makeStyles((theme) => ({
@@ -81,16 +82,25 @@ const TopMenu = () => {
           </Link>
         </Typography>
 
-        <Typography variant="h6">
+       
+</>
+        )}
+
+
+{/*SHOW QUIZES TAB only if  user is Admin or Student */}
+{((userService.isAdmin()) || (userService.isStudent()) ) && (
+     <>  
+       <Typography variant="h6">
         <Link to="/notifications" className={classes.link}>
           Notifications
         </Link>
         </Typography>
-</>
-        )}
+      </>
+)}
+
 
 {/*SHOW QUIZES TAB only if any user CR/STUDENT */}
-{(userService.isCR() && userService.isStudent() ) && (
+{((userService.isCR()) || (userService.isStudent()) ) && (
      <>  
        <Typography variant="h6">
           <Link to="/quizes" className={classes.link}>
@@ -145,7 +155,7 @@ const TopMenu = () => {
               userService.logout();
               {/*To refresh a page */}
               window.location.reload();
-              LandingPage();
+              {LandingPage()}
       }}
     >
    LogOut {" "} {userService.getLoggedInUser().name} {" "} {userService.getLoggedInUser().role}

@@ -1,6 +1,6 @@
 import React from "react";
 import SingleNotification from "./SingleNotification";
-import { Grid } from "@material-ui/core";
+import { Grid,Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import notificationService from "../../services/NotificationsService";
@@ -11,7 +11,10 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: theme.spacing(11),
     right: theme.spacing(2),
-    marginTop:"150px"
+    marginTop:"150px",
+    padding:"13px",
+    backgroundColor:"#ffdffb",
+    color:"darkblue"
   },
 
   Notification:{
@@ -63,14 +66,15 @@ return (
 
     <div>
       <h1 className={style.coursehd}>Notifications</h1> 
+      <hr />
       
 {/*SHOW ADD BUTTON only to logged in user who is Admin */}
 <>
       {(userService.isLoggedIn() && userService.isAdmin() ) &&  ( 
-      <Fab color="primary" aria-label="add" className={style.addBtn}   
-      onClick={handleNewNotificationClick}>
-        Add
-      </Fab>
+        <Button color="primary" aria-label="add" className={style.addBtn}   
+            onClick={handleNewNotificationClick}>
+            Add Notification
+        </Button>
       )}
 </>
 
@@ -78,11 +82,13 @@ return (
   {notifications.length == 0 ? (<p>There are no Notifications</p>) 
         :
         (
-            <Grid container spacing={3}>
+            <Grid container spacing={3} >
               {notifications.map((notification,index) => 
                   (
-                      
-                      <SingleNotification key={index} notification = {notification} onDelete={getData} />
+                      <div style={{marginLeft:"20px"}}>
+                      <SingleNotification  key={index} notification = {notification} onDelete={getData} />
+                      <br />
+                      </div>
                   )
               )}
             </Grid>
