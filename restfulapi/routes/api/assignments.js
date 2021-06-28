@@ -27,31 +27,36 @@ try {
 });
 
 //update a assignment
-router.put("/:id",auth,admin,async (req, res) => {
+router.put("/:id",auth,async (req, res) => {
     let assignment = await Assignment.findById(req.params.id);
-    assignment.name = req.body.name;
-    assignment.code = req.body.code;
-    assignment.instructor = req.body.instructor;
+    assignment.coursename = req.body.coursename;
+    assignment.coursecode = req.body.coursecode;
+    assignment.assignmentnumber = req.body.assignmentnumber;
     assignment.section = req.body.section;
+    assignment.syllabus = req.body.syllabus;
+    assignment.date = req.body.date;
     await assignment.save();
     return res.send(assignment);
   });
 
-//DELETE A COURSE
-router.delete("/:id",auth,admin,async (req, res) => {
+//DELETE A Assignment
+router.delete("/:id",auth,async (req, res) => {
     let assignment = await Assignment.findByIdAndDelete(req.params.id);
 
     return res.send(assignment);
   });
 
-//Insert a COURSE RECORD
-router.post("/",validateAssignment ,auth,admin, async (req, res) => {
+//Insert a ASSIGNMENT RECORD
+router.post("/",validateAssignment ,auth, async (req, res) => {
     let assignment = new Assignment();
 
-    assignment.name = req.body.name;
-    assignment.code = req.body.code;
-    assignment.instructor = req.body.instructor;
+    
+    assignment.coursecode = req.body.coursecode;
+    assignment.coursename = req.body.coursename;
+    assignment.assignmentnumber = req.body.assignmentnumber;
     assignment.section = req.body.section;
+    assignment.syllabus = req.body.syllabus;
+    assignment.date = req.body.date;
 
     await assignment.save();
     return res.send(assignment);

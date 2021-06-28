@@ -87,7 +87,7 @@ const TopMenu = () => {
         )}
 
 
-{/*SHOW QUIZES TAB only if  user is Admin or Student */}
+{/*SHOW Notification & Contact CT TAB only if  user is Admin or Student */}
 {((userService.isAdmin()) || (userService.isStudent()) ) && (
      <>  
        <Typography variant="h6">
@@ -95,7 +95,15 @@ const TopMenu = () => {
           Notifications
         </Link>
         </Typography>
-      </>
+     
+
+        <Typography variant="h6">
+        <Link to="/contact-cr" className={classes.link}>
+          Contact CR
+        </Link>
+        </Typography>
+
+</>
 )}
 
 
@@ -116,18 +124,7 @@ const TopMenu = () => {
       </>
 )}
 
-{/*SHOW CONTACT-CR TAB only if any user is STUDENT */}
-{userService.isStudent() && (
-  <>
-        <Typography variant="h6">
-          <Link to="/contact-cr" className={classes.link}>
-            Contact CR
-          </Link>
-        </Typography>
 
-         
-  </>
-)}
 
 
 {/*SHOW LOGIN/SIGNUP BUTTONS only if user is "NOT" logged in */}

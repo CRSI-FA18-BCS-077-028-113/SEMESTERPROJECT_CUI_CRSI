@@ -7,7 +7,7 @@ class AssignmentsService extends GenericService {
   addAssignment = (data) => this.post("assignments", data);
   deleteAssignment = (_id) => this.delete("assignments/" + _id);
   updateAssignment = (_id, data) => this.put("assignments/" + _id, data);
-  getAssignment = () => this.get("assignments");
+  getAssignment = () => this.get("assignments/");
   getSingleAssignment = (id) => this.get("assignments/" + id);
 }
 

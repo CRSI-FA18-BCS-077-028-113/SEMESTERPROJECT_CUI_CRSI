@@ -51,14 +51,14 @@ const Quizes = (props) => {
 return (
 
 <div>  
-{(userService.isStudent() && userService.isCR()  ) ( 
+{((userService.isStudent()) || (userService.isCR() ) ) &&( 
   
   <div>
       <h1>Quizes</h1> 
       
 {/*SHOW ADD BUTTON only to logged in user who is CR */}
 <>
-      {(userService.isLoggedIn() && userService.isCR() ) &&  ( 
+      { userService.isCR() &&  ( 
       
       <Fab color="primary" aria-label="add" className={style.addBtn}   
       onClick={handleNewQuizClick}>

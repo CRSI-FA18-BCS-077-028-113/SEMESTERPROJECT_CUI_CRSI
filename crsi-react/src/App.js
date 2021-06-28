@@ -7,6 +7,10 @@ import ControlledCarousel from "./components/ControlledCarousel";
 import Courses from "./components/courses/Courses";
 import UpdateCourse from "./components/courses/UpdateCourse";
 import NewCourse from "./components/courses/NewCourse";
+//-----------------------Contacts
+import Contacts from "./components/contacts/Contacts";
+import UpdateContact from "./components/contacts/UpdateContact";
+import NewContact from "./components/contacts/NewContact";
 //-----------------------Quizes
 import Quizes from "./components/quizes/Quizes";
 import UpdateQuiz from "./components/quizes/UpdateQuiz";
@@ -57,6 +61,10 @@ function App() {
           <Route path="/notifications/new" component={NewNotification} />
           <Route path="/notifications/update/:id" component={UpdateNotification} />
           <Route path="/notifications" component={Notifications} />
+{/*----------------CONTACT */}
+          <Route path="/contacts/new" component={NewContact} />
+          <Route path="/contacts/update/:id" component={UpdateContact} />
+          <Route path="/contacts" component={Contacts} />
 
           <Route path="/contact-cr" exact component={Contact_cr} />
           <Route path="/not-found" component={NotFound} />

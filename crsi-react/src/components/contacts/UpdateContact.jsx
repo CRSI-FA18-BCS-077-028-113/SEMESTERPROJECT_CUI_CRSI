@@ -23,6 +23,7 @@ const UpdateContact = (props) => {
   const [regid, setRegid] = React.useState("");
   const [contactnum, setContactnum] = React.useState("");
   const [section, setSection] = React.useState("");
+  const [dep, setDep] = React.useState("");
   const style = useStyles();
 
   //fetch id 

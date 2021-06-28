@@ -1,32 +1,58 @@
 import React from 'react';
 import { Button } from "@material-ui/core";
-import assignementService from "../../services/AssignmentsService";
+import assignmentService from "../../services/AssignmentsService";
 import { withRouter } from "react-router";
 import userService from "../../services/UserService";
+import { makeStyles } from "@material-ui/core/styles";
 
-const SingleQuiz = (props) => {
-  const{assignement,onDelete,history} = props;
+const useStyles = makeStyles((theme) => ({
+Btn:{
+  float: 'right',
+},
+mainh:{
+fontFamily:"timesnewroman",
+fontSize:"20px",
+fontWeight:"bold",
+marginTop:"50px",
+marginLeft:"30px"
+},
+
+genh:{
+  fontFamily:"calibri",
+  fontSize:"17px",
+  marginLeft:"80px"
+  }
+}));
+
+const SingleAssignment = (props) => {
+  const{assignment,onDelete,history} = props;
   console.log(props);
+  const style = useStyles();
     return (
+
     <div>
-    <h2>{assignement.coursename} 
-        {userService.isAdmin() && (
-        <>
+      <br />
+      <div>
+    <h2 className={style.mainh}>{assignment.coursename}
+
+        {userService.isCR() && (
+       <div style={{marginLeft:"1150px"}}>
         <Button
          variant="contained" color="primary"
-
+         className={style.Btn}
+         style={{backgroundColor:"#88e916"}}
          onClick={(e) => {
           console.log("navigate to update");
-          history.push("/assignments/update/" + assignement._id);
+          history.push("/assignments/update/" + assignment._id);
 
         }}
          >
           Edit
          </Button>
-        <Button variant="contained" color="secondary"
+        <Button variant="contained" color="secondary" className={style.Btn}
         onClick={(e) => {
-          assignementService
-            .deleteQuiz(assignement._id)
+          assignmentService
+            .deleteAssignment(assignment._id)
             .then((data) => {
               console.log(data);
               onDelete();
@@ -38,18 +64,18 @@ const SingleQuiz = (props) => {
          >
         Delete 
         </Button>
-        </>
+        </div>
+       
+
          )}
     </h2>
-
-        <p>{assignement.coursecode}</p>
-        <p>{assignement.assignementnumber}</p>
-        <p>{assignement.syllabus}</p>
-        <p>{assignement.date}</p>
-       <hr />
-    </div>
+    <hr />
+   </div>
+          <p className={style.genh}>{assignment.coursecode} | {assignment.assignmentnumber} | {assignment.syllabus} | {assignment.date}</p>
+          <hr />
+</div>
 
   );
 }
  
-export default withRouter(SingleQuiz);
+export default withRouter(SingleAssignment);

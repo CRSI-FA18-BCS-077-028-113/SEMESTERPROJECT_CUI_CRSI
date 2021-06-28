@@ -4,7 +4,7 @@ const Joi = require("@hapi/joi");
 var assignmentSchema = mongoose.Schema({
   coursecode: String,
   section: String,
-  coursname: String,
+  coursename: String,
   assignmentnumber: Number,
   syllabus:String,
   date:String,

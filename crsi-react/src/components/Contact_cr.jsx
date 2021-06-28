@@ -3,6 +3,7 @@ import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import Image from "./images/wood-bg.jpg";
 import Contacts from "./contacts/Contacts";
+import contactService from "../services/ContactsService";
 const useStyles = makeStyles((theme) => ({
 
 }));
@@ -20,9 +21,16 @@ const Contact_cr = () => {
       variant="contained"
             color="primary"
             onClick={(e) => {
-              {/*To refresh a page */}
-              window.location.reload();
-              Contacts();
+              
+              contactService
+              .getContact()
+              .then((data) => {
+                console.log(data);
+                window.location.href = "/contacts";
+              })
+              .catch((err) => {
+                console.log(err);
+              });
       }}
 
       >View Batches</Button>

@@ -11,8 +11,8 @@ const useStyles = makeStyles((theme) => ({
     position: "absolute",
     top: theme.spacing(11),
     right: theme.spacing(2),
+    marginTop:"100px",
   },
-
   course:{
      fontFamily: "timesnewroman",
      fontSize:9,
@@ -51,18 +51,18 @@ const Assignments = (props) => {
 return (
 
 <div>  
-{(userService.isStudent() && userService.isCR()  ) ( 
+{(userService.isStudent() || userService.isCR()  ) && ( 
   
   <div>
       <h1>Assignments</h1> 
       
 {/*SHOW ADD BUTTON only to logged in user who is CR */}
 <>
-      {(userService.isLoggedIn() && userService.isCR() ) &&  ( 
+      {(userService.isStudent() || userService.isCR() ) &&  ( 
       
       <Fab color="primary" aria-label="add" className={style.addBtn}   
       onClick={handleNewAssignmentClick}>
-        Add Assignment
+        Add
       </Fab>
       )}
 </>
